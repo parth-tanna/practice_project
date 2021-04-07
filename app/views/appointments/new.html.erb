@@ -1,0 +1,12 @@
+<%= form_with(model: current_user.patient_appointments.build(), local: true) do |f| %>
+<%= render 'shared/appointment_error_messages'  %>
+<div><%= hidden_field_tag :doctor_id, params[:id]||@id %></div>
+<div><%= hidden_field_tag :patient_id, current_user.id %></div>
+<%= f.label :reason %><br />
+    <%= f.text_area :reason, autofocus: true%><br><br>
+    <%= f.label :Date %><br />
+    <%= f.date_field :time_slot, min: Date.tomorrow ,autofocus: true%><br><br>
+<%= f.submit "Create Appointment", class: "btn btn-primary" %>
+<% end %>
+
+

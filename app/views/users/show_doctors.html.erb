@@ -1,0 +1,16 @@
+<% provide(:title,"Doctors") %>
+
+<h1>Kindly book appointment only if you are sick.</h1>
+<ul class="users">
+<% @doctors.each do |doctor| %>
+<li>
+
+<%= link_to doctor.name, user_path(id:doctor.id) %>
+
+<% if current_user.admin? && !current_user?(doctor) %>
+| <%= link_to "delete", delete_user_path(id:doctor.id)%>
+
+<% end %>
+</li>
+<% end %>
+</ul>

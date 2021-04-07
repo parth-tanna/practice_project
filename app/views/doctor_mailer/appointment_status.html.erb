@@ -1,0 +1,17 @@
+<h1>Doctor Appointment_status</h1>
+
+
+<p>Hi <%= @email%></p>
+<p>
+Thank you for reaching out to us.
+</p>
+<% if @status=="Confirm"%>
+<p>
+Congratulations Your Appointment has been CONFIRMED by <%= @doctor %> which is on <%= @time %>
+</p>
+<% else %>
+<p>
+Sorry Your Appointment has been REJECTED by <%= @doctor %> which is on <%= @time %>
+</p>
+<% end %>
+

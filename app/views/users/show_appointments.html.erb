@@ -1,0 +1,54 @@
+<ol>
+<% if current_user.role=="Patient" && current_user?(current_user)%>
+
+<% @doctors_appointment.each do |appointment| %>
+<li>
+<b>Reason/Disease:</b><%= appointment.reason%><br>
+<b>Date:</b><%= appointment.time_slot%><br>
+<b>Doctor Name:</b>
+
+<%= appointment.doctor.name%><br>
+<b>Doctor Mobile No.:</b><%= appointment.doctor.mobile_number%><br>
+<b>Doctor Email:</b><%= appointment.doctor.email%><br>
+<b>Address:</b>
+<%= appointment.doctor.address%><br><br><br>
+
+
+
+
+
+</li>
+<%end%>
+<% elsif current_user.role=="Doctor" && current_user?(current_user) %>
+<% @patients_appointment.each do |appointment| %>
+<li>
+<b>Reason/Disease:</b><%= appointment.reason%><br>
+<b>Date:</b><%= appointment.time_slot%><br>
+<b>Patient Name:</b><%= appointment.patient.name%><br>
+
+<b>Patient Mobile No.:</b><%= appointment.patient.mobile_number%><br>
+<b>Patient Email:</b><%= appointment.patient.email%><br>
+<b>Address:</b><%= appointment.patient.address%>
+</li>
+<% if appointment.status=="Confirm"%>
+<h4>Add Consultation Details(Optional):</h4>
+<%= form_tag "add_note", :id=>"my_form", :remote=>true do%>
+<%= text_area_tag "add_note"%><br>
+<div><%= hidden_field_tag :email,appointment.patient.email %></div>
+<div><%= hidden_field_tag :doctor,appointment.doctor.name %></div>
+<div><%= hidden_field_tag :time,appointment.time_slot %></div>
+<%= button_to "Send Note", add_note_path,method: :get,class: "btn btn-primary" %>
+<% end%>
+
+<% else%>
+<%= link_to "Confirm", appointment_status_path(email: appointment.patient.email,status: "Confirm",doctor:appointment.doctor.name,time:appointment.time_slot,doctor_id:appointment.doctor.id)%>
+<%= link_to "Reject", appointment_status_path(email: appointment.patient.email,status: "Reject",doctor:appointment.doctor.name,time:appointment.time_slot,doctor_id:appointment.doctor.id)%>
+<% end %>
+<br><br><br>
+<%end %>
+
+
+
+<%end %>
+</ol>
+ 

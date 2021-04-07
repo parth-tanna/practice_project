@@ -1,0 +1,15 @@
+<ul>
+<%= params[:id]%>
+
+<% @doctors.each do |doctor| %>
+<li>
+<%= doctor.name%>
+<%= doctor.reason%>
+<%= doctor.time_slot%>
+
+
+
+
+</li>
+<%end %>
+</ul>
